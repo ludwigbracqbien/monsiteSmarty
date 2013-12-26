@@ -5,29 +5,27 @@ session_start();
 $mail=$_POST['mail'];
 $Passwd=$_POST['passwd'];
 
-$sql="select COUNT(*) from utilisateurs where email='$mail' AND mot_de_passe='$Passwd'";
-
+$sql="select COUNT(*) from utilisateurs where email='$mail' AND mot_de_passe='$Passwd'";// Vérification du nombre d'occurence, si ==1 Connexion autorisé
 $req=mysql_query($sql);
-
 while ($donnees = mysql_fetch_array($req) ) 
-				{	
-					echo $NbOccure=$donnees[0];
-				}
+	{	
+		 $NbOccure=$donnees[0];
+	}
 if($NbOccure==1)//CONNEXION OK
-{
-$sql2="select * from utilisateurs where email='$mail' AND mot_de_passe='$Passwd'";
+{							//Requete pour rechercher le nom et le prenom de l'user
+	$sql2="select * from utilisateurs where email='$mail' AND mot_de_passe='$Passwd'";
 
-$req2=mysql_query($sql2);
-while ($donnees2 = mysql_fetch_array($req2) ) 
-				{	
-					$_SESSION['nom']=$donnees2['nom'];				//CREATION VARS SESSION
-					$_SESSION['prenom']=$donnees2['prenom'];
-				}
+	$req2=mysql_query($sql2);
+	while ($donnees2 = mysql_fetch_array($req2) ) 
+		{	
+			$_SESSION['nom']=$donnees2['nom'];				//CREATION VARS SESSION
+			$_SESSION['prenom']=$donnees2['prenom'];
+		}
 }
 ?>
 
 <SCRIPT LANGUAGE=JAVASCRIPT>
-		window.location = '..//index.php'//A REFAIRE EN HEADER
+		window.location = '..//index.php'//Redirection en JavaScript
 </SCRIPT>
 
 

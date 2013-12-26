@@ -60,41 +60,30 @@ while ($donnees2 = mysql_fetch_array($req2) )
 if(($MotCle!="")&&($NbOccure!=0))
 {
 
-?>
-<div class="span8">
+		?>
+		<div class="span8">
           	<!-- notifications -->
       	
           	<!-- contenu -->
-     <center><img src="img/Recherche.png"></center>
-	 <br><br><br><br>
-<?php
+		<center><img src="img/Recherche.png"></center>
+		<br><br><br><br>
+		<?php
 
 
-$page=(isset($_GET['page'])) ? $_GET['page'] : 1;
+		$page=(isset($_GET['page'])) ? $_GET['page'] : 1;
 
-$nbArticleParPage=2;
+		$nbArticleParPage=2;
 
-$nbTotalDePAge= ceil($NbOccure/$nbArticleParPage);
-$debut=($page - 1 )* $nbArticleParPage;
-
-
-$sql="select Titre,Texte,Date,ID_article from articles where Titre LIKE '%$MotCle%' OR Texte LIKE '%$MotCle%' AND Statut='1'ORDER BY Date DESC LIMIT $debut,$nbArticleParPage";
+		$nbTotalDePAge= ceil($NbOccure/$nbArticleParPage);
+		$debut=($page - 1 )* $nbArticleParPage;
 
 
+		$sql="select Titre,Texte,Date,ID_article from articles where Titre LIKE '%$MotCle%' OR Texte LIKE '%$MotCle%' AND Statut='1'ORDER BY Date DESC LIMIT $debut,$nbArticleParPage";
 
-
-
-
-
-/*
-
-
-$sql="select Titre,Texte,Date,ID_article from articles where Titre LIKE '%$MotCle%' OR Texte LIKE '%$MotCle%' AND Statut='1' ORDER BY Date DESC";
-*/
-$req1=mysql_query($sql);
-while ($donnees1 = mysql_fetch_array($req1) ) 
+		$req1=mysql_query($sql);
+		while ($donnees1 = mysql_fetch_array($req1) ) 
 				{							
-					echo'<center>';
+						echo'<center>';
 						echo '<img src="img/ligne.jpg">';
 						echo'<td><tr width="250">';
 						echo'<table border=5><tr><td>';
@@ -145,104 +134,92 @@ while ($donnees1 = mysql_fetch_array($req1) )
 						</form>
 						</td></tr></table><?php
 						echo 	'<br>';	
-						
-						echo 	'<br>';								
-						
+													
+						include('Admin/ComptageCom.php');
 						echo '</center>';
 						
 						
 				}
 				
-	?>			
+		?>			
 				
 				
-			<br><br><br><center>
-<div class="badge">
-<table><tr>
+		<br><br><br><center>
+		<div class="badge">
+		<table><tr>
+		<td>
+		<?php    // Affichage de la fléche de changement de page Gauche
+		if($page==1)
+		{			
+			echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheG.jpg'></a>";
+		}
+		else																		//IMG FLECHE G
+		{
+			$page--;
+			echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheG.jpg'></a>";
+			$page++;
+		}
+		?>
 
-<td>
-<?php
-if($page==1)
-{			
-echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheG.jpg'></a>";
-}
-else																		//IMG FLECHE G
-{
-$page--;
-echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheG.jpg'></a>";
-$page++;
-}
-?>
+		<?php
+		echo'</td><td>';
+		echo'PAGES :';		
+		echo'</td><td width=5>  </td>';
+		for($i=1;$i<=$nbTotalDePAge;$i++)			//NUMEROS DE PAGES
+		{
 
-<?php
-echo'</td><td>';
-echo'PAGES :';		
-echo'</td><td width=5>  </td>';
-for($i=1;$i<=$nbTotalDePAge;$i++)			//NUMEROS DE PAGES
-{
-
-if($i==$page)
-{
-echo'<td>';						
-echo"<a href=AffichageRecherche.php?page=$i&recherche2=$MotCle><font color=green size=3>$i</font></a>";
-echo'</td>';
-echo'<td width=5>';
-echo'</td>';
-}
-else
-{
-echo'<td>';						
-echo"<a href=AffichageRecherche.php?page=$i&recherche2=$MotCle>$i</a>";
-echo'</td>';
-echo'<td width=5>';
-echo'</td>';
-}
-}
-echo'<td>';
+			if($i==$page)
+			{
+				echo'<td>';						
+				echo"<a href=AffichageRecherche.php?page=$i&recherche2=$MotCle><font color=green size=3>$i</font></a>";
+				echo'</td>';
+				echo'<td width=5>';
+				echo'</td>';
+			}
+			else
+			{
+				echo'<td>';						
+				echo"<a href=AffichageRecherche.php?page=$i&recherche2=$MotCle>$i</a>";
+				echo'</td>';
+				echo'<td width=5>';
+				echo'</td>';
+			}
+		}
+		echo'<td>';
 
 
-if($page==$nbTotalDePAge)
-{			
-echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheD.jpg'></a>";
-}
-else	
-{
-
-$page++;
-
-echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheD.jpg'></a>";
-}
-echo'</td>';
-?>
-</tr>
-</table>
-</div></center>	
-						
-				
-			
-          </div>
-		  <?php
- include_once('includes/menu.inc.php');         
+		if($page==$nbTotalDePAge)  // Affichage de la fléche de changement de page Droite
+		{			
+			echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheD.jpg'></a>";
+		}
+		else	
+		{
+			$page++;
+			echo"<a href=AffichageRecherche.php?page=$page&recherche2=$MotCle><img src='img/flecheD.jpg'></a>";
+		}
+		echo'</td>';
+		?>
+		</tr>
+		</table>
+		</div></center>		
+        </div>
+		<?php
+		include_once('includes/menu.inc.php');         
        ?>  
-<?php
-include_once('includes/pied_pages.inc.php');
+		<?php
+		include_once('includes/pied_pages.inc.php');
 }
 else
-{?>
- 
-		<SCRIPT LANGUAGE=JAVASCRIPT>
-		window.location = 'index.php?TestRecherche=1'
-		</SCRIPT>
-	
- 
+{
+?>
+	<SCRIPT LANGUAGE=JAVASCRIPT>
+	window.location = 'index.php?TestRecherche=1'  //Redirection
+	</SCRIPT>
 <?php	
 }
 ?>
-      
-
-    </div>
-
-  </body>
+</div>
+</body>
 </html>
 			
 				

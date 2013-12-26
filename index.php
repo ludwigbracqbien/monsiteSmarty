@@ -89,7 +89,7 @@ if(isset($_SESSION['nom']))
 
 		$nbTotalDePAge= ceil($total/$nbArticleParPage);
 		$debut=($page - 1 )* $nbArticleParPage;
-
+												//Requête d'affichage des articles, en prenant en compte la pagination 
 		$sql2=("Select ID_article,Texte,Titre,DATE_FORMAT(Date,'%d/%m/%Y') as Date_fr FROM articles WHERE Statut=1 ORDER BY Date DESC LIMIT $debut,$nbArticleParPage");
 		$result2=mysql_query($sql2);
 
@@ -133,7 +133,8 @@ if(isset($_SESSION['nom']))
 				<a href="Admin/SupressionArticles.php?id=<?php echo $donnees1['ID_article']?>" class="btn2">Supprimer </a href><!-- Supprimer l'article --> 
 				</td></tr></table><?php
 				echo 	'<br>';							
-				echo 	'<br>';								
+				echo 	'<br>';	
+					include('Admin/ComptageCom.php');
 				echo '<img src="img/ligne.jpg">'; //Ligne de séparation d'articles
 				echo '</center>';								
 			}				
@@ -227,7 +228,7 @@ if(isset($_SESSION['nom']))
 	{
 
 
-		echo"<img src=img/Desole.png></td><td>";
+		echo"<img src=img/Desole.png></td><td>";				//Image pas connecté
 
 
 	}

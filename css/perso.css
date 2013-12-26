@@ -188,3 +188,10 @@ visibilty:hidden;
 visibilty:visible;
 }
 
+.Commentaires{
+border-style:solid;
+background-color:gray;
+border-left-style: dotted; 
+border-right-style: dotted; 
+
+}

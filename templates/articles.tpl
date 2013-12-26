@@ -1,6 +1,7 @@
 <head>
+<SCRIPT LANGUAGE="JavaScript">{* fonctions JavaScript de vérification des champs  *}
 {literal}
-<SCRIPT LANGUAGE="JavaScript">{* fonctions JavaScript  *}
+
 function validationFormulaire()
 {
 var titre=document.forms["saisie"]["titre"].value;
@@ -100,8 +101,9 @@ else
 
 return true;
 }
-</SCRIPT>
+
 {/literal}
+</SCRIPT>
 </head>
 <body>
 				{* Cas d'une modification, donc d'un élément deja existant  *}
@@ -109,9 +111,9 @@ return true;
 
 		<div class="span8">
           	<!-- notifications -->
-          	<div class="badge">
+          	<div class="badge">				{* formulaire de saisie  *}
           	<!-- contenu -->
-         <form method="post" name="saisie" action="Admin/traitementArticles.php?id={$id}" onsubmit="return validationFormulaire();"enctype="multipart/form-data">
+         <form method="post" name="saisie" action="Admin/traitementArticles.php?id={$id}" onsubmit="javascript:return validationFormulaire();"enctype="multipart/form-data">
 		 <dd>Titre :</dd>
 		 <dd><input type="text" name="titre"value="{$Titre}"></dd>
 		 
@@ -153,7 +155,7 @@ return true;
           <div class="span8">
           	<!-- notifications -->
           	<div class="badge">
-          	<!-- contenu -->
+          	<!-- contenu -->					{* formulaire de saisie  *}
          <form method="post" name="saisie" action="Admin/traitementArticles.php" onsubmit="return validationFormulaire();" enctype="multipart/form-data">
 		 <dd>Titre :</dd>
 		 <dd><input type="text" name="titre"></dd>
